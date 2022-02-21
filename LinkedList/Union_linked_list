@@ -1,0 +1,50 @@
+https://practice.geeksforgeeks.org/problems/union-of-two-linked-list/1/?page=2&difficulty[]=0&category[]=Linked%20List&sortBy=accuracy#
+
+Input:
+L1 = 9->6->4->2->3->8
+L2 = 1->2->8->6->2
+Output: 1 2 3 4 6 8 9
+
+
+struct Node* makeUnion(struct Node* head1, struct Node* head2)
+{
+   set<int>s;
+   Node *ss=NULL;
+   Node *temp1=head1;
+   Node *temp2=head2;
+   Node *prev=NULL;
+   
+   while(temp1!=NULL){
+       prev=temp1;
+       temp1=temp1->next;
+   }
+  
+   prev->next=head2;
+   
+   //head1= 9->6->4->2->3->8->1->2->8->6->2
+   
+   Node *comp=head1;
+   Node *comp1=head1;
+   
+      while(comp!=NULL){
+       
+       s.insert(comp->data);//insert all the values in the set 
+       comp=comp->next;
+   }
+   
+   
+   int n=s.size();
+   
+   vector<int>v(s.begin(),s.end());
+    for(int i:s){
+        ss=comp1;
+        comp1->data=i;
+        comp1=comp1->next;
+    }
+    // 1 2 3 4 6 8 9
+    //comp1=1 2 3 4 6 8 9 2 8 6 2  here we need to remove the elements after 9 so we will set to null 9->next=null in next step
+   ss->next=NULL;
+   return head1;
+   
+}
+
