@@ -1,2 +1,67 @@
 Problem_link
 https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1/?page=1&difficulty[]=-1&difficulty[]=0&category[]=Linked%20List&sortBy=accuracy#
+
+Input: 
+N = 7
+Link List:
+17 -> 15 -> 8 -> 9 -> 2 -> 4 -> 6 -> NULL
+
+Output: 8 2 4 6 17 15 9
+
+Explaination: 8,2,4,6 are the even numbers 
+so they appear first and 17,15,9 are odd 
+numbers that appear later.
+
+for this we will create 2 node which will store the odd and even nodes and other 2 node to take care of its ending point of the odd and even node 
+
+------------------------------------------------------------------
+    Node* divide(int N, Node *head){
+        // code here
+         Node *temp=head ;
+         Node *os=NULL;
+         Node *oe=NULL;
+         Node *es=NULL;
+         Node *ee=NULL;
+int x=0;
+        while(temp !=NULL){
+            x=temp->data;
+            if(x%2==0){                
+                if(es==NULL){
+                    es=temp;
+                    ee=temp;
+                   }
+                else{
+                    
+                    ee->next=temp;
+                    ee=ee->next;
+                   }
+               
+            }
+            else{
+               if(os==NULL){
+                    os=temp;
+                    oe=temp;
+                }
+                else{
+                    
+                    oe->next=temp;
+                    oe=oe->next;
+                }
+            }
+            temp=temp->next;
+        }
+        if(es==NULL)return os;
+        if(os==NULL)return es;
+        ee->next=os;
+        oe->next=NULL;
+        
+        ee->next=os;
+        
+        
+        
+        return es;
+    }
+    
+ ------------------------------------------------------------------------------------   
+ 
+ 
