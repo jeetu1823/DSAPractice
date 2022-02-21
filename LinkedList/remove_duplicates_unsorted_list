@@ -1,0 +1,42 @@
+https://practice.geeksforgeeks.org/problems/remove-duplicates-from-an-unsorted-linked-list/1/?page=2&difficulty[]=0&category[]=Linked%20List&sortBy=accuracy#
+
+Input:
+N = 4
+value[] = {5,2,2,4}
+Output: 5 2 4
+
+    Node * removeDuplicates( Node *head) 
+    {
+      map<int,int>m;
+      
+      Node *temp=head;
+      Node *temp2=head;
+      Node *prev=NULL;
+       vector<int>v;
+      while(temp!=NULL){
+          
+          m[temp->data]++;
+          v.push_back(temp->data);
+          temp=temp->next;
+      }
+      
+      int n=m.size();
+     
+    
+      
+      for(int i=0;i<v.size();i++){
+          
+                auto it=m.find(v[i]);
+               
+               if(it->second>0){
+                   
+                temp2->data=v[i];
+                prev=temp2;
+                temp2=temp2->next;
+                m.erase(v[i]);//after inserting one time then remove it from the map so if it will present once  again then it will 0 in map
+                
+                } 
+      }
+       prev->next=NULL;
+      return head;
+    }
