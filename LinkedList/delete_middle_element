@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/delete-middle-of-linked-list/1/?page=2&difficulty[]=0&category[]=Linked%20List&sortBy=accuracy#
+
+Input:
+LinkedList: 1->2->3->4->5
+Output: 1 2 4 5
+
+from end 3 element we have to delete 
+for odd case 
+1->2->3->4->5  == 1 2 4 5
+1->2->3->4->5->6 == 1 2 3 5 6
+
+for this we will take two pointer start and end will move with speed of 2 where as start move with speed 1.
+
+
+Node* deleteMid(Node* head)
+{
+    Node *end=head;
+    Node *start =head;
+    Node *prev=NULL;
+    
+    while(end !=NULL and end->next !=NULL){
+        prev=start;
+        start=start->next;
+        end=end->next->next;
+    }
+    prev->next =start->next;
+     
+    
+    return head;
+
