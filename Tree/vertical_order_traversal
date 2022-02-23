@@ -1,0 +1,280 @@
+
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------
+
+level Order traversal
+
+
+https://practice.geeksforgeeks.org/problems/level-order-traversal/1
+
+Input:
+        10
+     /      \
+    20       30
+  /   \
+ 40   60
+Output:10 20 30 40 60
+
+first make a queue and store the root 
+ q=| root|
+ 
+ n=1
+ 
+ in temp store its value temp =p.front()
+ and removw it from the q;
+ 
+ now check for the left and right child of the temp
+ 
+ q becomes=[20,30] it contains two node 
+ and this process goes on 
+
+ vector<int> levelOrder(Node* node)
+    {
+      //Your code here
+    vector<int>v;
+    
+        if(node==NULL) return v;
+        
+        queue<Node *>q;
+        
+        q.push(node);
+     
+        while(!q.empty()){
+            
+               Node *temp=q.front();
+                q.pop();
+                
+                v.push_back(temp->data);
+                
+                if(temp->left!=NULL) q.push(temp->left);
+                if(temp->right!=NULL)q.push(temp->right);
+                
+        }
+        
+        return v;
+      
+      
+    
+    }
+
+
+------------------------------------------------------------------------------------------
+
+ Reverse Level Order
+
+
+https://practice.geeksforgeeks.org/problems/reverse-level-order-traversal/1
+
+Input :
+       10
+      /  \
+     20   30
+    / \ 
+   40  60
+
+Output: 40 60 20 30 10
+Explanation:
+Traversing level 2 : 40 60
+Traversing level 1 : 20 30
+Traversing level 0 : 10
+
+//same just like level order just make one change instead of storing to ans vector store instead of temp 
+//vector in level wise then after  store it in 2d vector
+
+//and  finaly store it in ans vector
+if we dont reverse the temp vector then t[][]=[ {10}, {20,30} , {40,60} ]
+
+//after reversing the 2d vector 
+t[][]=[{40,60},{10},{20,30}]
+
+vector<int> reverseLevelOrder(Node *root)
+{
+   vector<vector<int>>t;
+   vector<int>ans;
+   
+   if(root==NULL)return ans;
+   queue<Node*>p;
+   p.push(root);
+   
+   while(!p.empty()){
+       
+       int n=p.size();
+       vector<int>temp;
+       for(int i=0;i<n;i++){
+           Node * it=p.front();p.pop();
+           temp.push_back(it->data);
+            if(it->left)p.push(it->left);
+          if(it->right)p.push(it->right);
+         
+           
+       }
+       t.push_back(temp);
+   }
+   
+   reverse(t.begin(),t.end());
+   
+        for(int i=0;i<t.size();i++){
+       
+         for(int j=0;j<t[i].size();j++){
+             
+              ans.push_back(t[i][j]);
+             
+         }
+     }
+     
+     return ans;
+     
+}
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------
+Zig zag Traversal 
+
+https://practice.geeksforgeeks.org/problems/zigzag-tree-traversal/1#
+
+Input:
+           7
+        /     \
+       9       7
+     /  \     /   
+    8    8   6     
+   /  \
+  10   9 
+Output:
+7 7 9 8 8 6 9 10 
+
+same just like reverse level order travesal .
+int reverse level order traversal we revesre the whole 2d array in this case we reverse onle the 2d arrya which are at odd places
+
+
+
+    vector <int> zigZagTraversal(Node* root)
+    {
+     vector<int>ans;
+     if(root==NULL)return ans;
+     vector<vector<int>>dq;
+     
+     queue< Node*>pq;
+     pq.push(root);
+    
+     while(!pq.empty()){
+         int n=pq.size();
+         vector<int>h;
+         for(int i=0;i<n;i++){
+        
+        
+         Node *t=pq.front();
+          pq.pop();
+         h.push_back(t->data);
+         
+         if(t->left)pq.push(t->left);
+          if(t->right)pq.push(t->right);
+         
+         
+            }
+            
+            dq.push_back(h);
+            
+ 
+        }
+    
+     
+     for(int i=0;i<dq.size();i++){
+         
+         vector<int>te=dq[i];
+         if(i%2==1)reverse(te.begin(),te.end());
+         
+         for(int j=0;j<te.size();j++){
+             
+              ans.push_back(te[j]);
+             
+         }
+     }
+     
+    return ans;
+    
+    }
+-------------------------------------------------------------------------------- --------------------- ------------------------------
+
+Vertical Order Taversal
+
+https://practice.geeksforgeeks.org/problems/print-a-binary-tree-in-vertical-order/1/?page=3&difficulty[]=1&category[]=Tree&sortBy=accuracy#
+
+Input:
+           1
+         /   \
+       2       3
+     /   \   /   \
+   4      5 6      7
+              \      \
+               8      9           
+Output: 
+4 2 1 5 6 3 8 7 9 
+solution 
+           
+           0
+           1
+         /  \
+   -1   2       3   1
+     /   \     /  \
+-2  4    0 5   6 0   7  2
+               \      \
+                8 1     9   3  
+
+//create the map for vector 
+// key = 0,-1,-2,0,1,2,3 in this case 
+//and store the values according to there key in the vector 
+//create the key when we go to left side subtract and add for the right side
+
+vector<int> verticalOrder(Node *root)
+    {
+       vector<int>v;
+       map<int,vector<int>>m;
+       
+              if(root==NULL)return v;
+       
+       queue< pair< int ,Node*>>pq;
+       pq.push({0,root});
+       
+       while(!pq.empty()){
+           
+            pair<int ,Node*>it = pq.front();
+           pq.pop();
+           
+           Node *t=it.second;
+           int hd=it.first;
+           
+           m[hd].push_back(t->data);
+            
+           
+           if(t->left)pq.push({hd-1 ,t->left});
+           if(t->right)pq.push({hd+1 ,t->right});
+          
+       }
+       
+        
+       
+       for(auto i:m){
+           
+           for(auto j:i.second)v.push_back(j);
+       }
+       
+       
+       return v;
+    }
+    
+    ---------------------------------------------------------------------------------
