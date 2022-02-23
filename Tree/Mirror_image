@@ -2,7 +2,8 @@
 
 
 
-![image](https://static8.depositphotos.com/1057741/1041/i/950/depositphotos_10415184-stock-photo-golden-retriever-dog-sitting-on.jpg)
+ https://practice.geeksforgeeks.org/problems/mirror-of-a-given-node/1/?page=3&difficulty[]=1&category[]=Tree&sortBy=accuracy#
+ 
  
 int help(Node *root1,Node *root2,int tar){
     
@@ -10,10 +11,10 @@ int help(Node *root1,Node *root2,int tar){
     if(root1 ==NULL or root2==NULL)return -1;
     
      if(root1->data==tar  or root2->data==tar){
-         return root1->data==tar?root2->data:root1->data;
+         return root1->data==tar?root2->data:root1->data; //if root1->data=tar then return root2->data
      }
-    int ans1=help(root1->left,root2->right,tar); //
-    int ans2=help(root1->right,root2->left,tar);
+    int ans1=help(root1->left,root2->right,tar); //iterate from left of first node and from right second node 
+    int ans2=help(root1->right,root2->left,tar);//iterate from left of second node and from right first node 
     
      return ans1!=-1?ans1:ans2; //if ans==-1 then return ans2 
 }
