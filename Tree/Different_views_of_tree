@@ -1,0 +1,126 @@
+Top View 
+
+
+https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+
+Input:
+
+in key we sotre the distance if the distance is not present in the hasmap then insert it it will give the top view
+
+and the distance which is present the last time this will give the botoom view 
+          0
+          10
+       /      \
+-1   20        30 1
+    /   \      /    \
+-2 40   60    90    100  2
+         0    0
+         
+         
+Output: 40 20 10 30 100
+
+ vector<int> topView(Node *root)
+    {
+        vector<int>lf,rf;
+        if(root==NULL)return lf;
+        queue<pair<int,Node*>>pq;
+        deque<int>dq;
+        pq.push({0,root});
+        map<int,int>m;
+        while(!pq.empty()){
+            
+        pair<int,Node*>it=pq.front();
+        pq.pop();
+        Node *t=it.second;
+        int x=it.first;
+                           
+                if(m.find(x)==m.end()){
+                    
+                    m.insert({x,t->data});
+                }
+                                
+                if(t->left)pq.push({x-1,t->left});
+                if(t->right)pq.push({x+1,t->right});
+            
+        }
+        for(auto i:m){
+            
+            rf.push_back(i.second);
+             
+        }
+        return rf;
+    }
+
+
+
+// for bottom view everything is same just change the this part of the code 
+  before:
+  top view
+  if(m.find(x)==m.end()){
+                    
+                    m.insert({x,t->data});
+                }
+                
+                bottom view
+                after:
+                
+                m.insert({x,t->data}) 
+                or
+                m[x]=t->data;
+------------------------------------------------------------------------------------------------------------
+
+
+Left View
+
+https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1
+
+
+   1
+ /  \
+3    2
+Output: 1 3
+
+
+ vector<int> leftView(Node *root)
+{ 
+    vector<int>ans;
+   if(root==NULL)return ans;
+    queue<Node*>pq;
+    pq.push(root);
+    while( !pq.empty() ){
+        int n=pq.size();
+        
+        for(int i=0;i<n;i++){
+            
+            Node*t=pq.front();
+            pq.pop();
+            
+            if(i==0)ans.push_back(t->data);
+            if(t->left!=NULL)pq.push(t->left);
+              if(t->right!=NULL)pq.push(t->right);
+        }
+    }
+    
+  return ans;
+}
+
+
+for right view 
+
+https://practice.geeksforgeeks.org/problems/right-view-of-binary-tree/1
+
+     10
+    /   \
+  20     30
+ /   \
+40  60 
+Output: 10 30 60
+just channge in condition 
+
+if(i==0)ans.push_back(t->data); to if(i==n-1)ans.push_back(t->data);
+
+
+
+
+
+
