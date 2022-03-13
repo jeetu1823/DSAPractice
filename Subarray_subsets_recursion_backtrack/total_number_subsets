@@ -1,0 +1,55 @@
+
+
+
+https://leetcode.com/problems/subsets/
+
+Given an integer array nums of unique elements, return all possible subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+
+----------------------------------------------------
+
+class Solution {
+public:
+    
+    vector<vector<int>>ans;
+    
+    void solve(vector<int>&nums,vector<int>&temp,int i){
+        
+        if(i==nums.size()){
+            
+            ans.push_back(temp);
+            return;
+        }
+        //take the element 
+        temp.push_back(nums[i]);
+        
+        //move forward
+        solve(nums,temp,i+1);
+        
+        //remove the element or return the vector as its is or retrive the original array after the inserting the element 
+        temp.pop_back();
+       
+        //then process for the next or dont take 
+        solve(nums,temp,i+1);       
+        
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int>temp;
+        solve(nums,temp,0);
+        
+        return ans;
+    }
+};
