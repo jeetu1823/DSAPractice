@@ -1,0 +1,96 @@
+
+https://leetcode.com/problems/sort-list/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ 
+ 
+ 
+class Solution {
+public:
+    //find the mid eleememt
+    ListNode*midl(ListNode *head){
+        
+        ListNode *slow=head;
+        ListNode *fast=head ;
+        
+        while(fast->next!=NULL and fast->next->next!=NULL and slow !=NULL ){
+            
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        
+        return slow;
+    }
+    
+    ListNode* merge(ListNode* l,ListNode*r){
+        
+        if(l==NULL)return r;
+        if(r==NULL)return l;
+        
+        
+        ListNode* ans=new ListNode(-1);
+        ListNode* temp=ans;
+        
+        while(l!=NULL and r!=NULL){
+            
+            if(l->val < r->val){
+                
+                temp->next=l;
+                temp=l;
+                l=l->next;
+            }
+            else{
+                
+                temp->next=r;
+                temp=r;
+                r=r->next;
+            }
+        }
+        
+        while(l!=NULL){
+            
+            temp->next=l;
+            temp=l;
+            l=l->next;
+        }
+        
+         while(r!=NULL){
+            
+            temp->next=r;
+            temp=r;
+            r=r->next;
+        }
+        
+        return ans->next;
+    }
+    
+    
+    
+    ListNode* sortList(ListNode* head) {
+        
+        
+        if(head==NULL or head->next==NULL)return head;
+        
+        ListNode *mid=midl(head);
+        ListNode *r=mid->next;
+        ListNode *l=head;
+        mid->next=NULL;
+        
+        l=sortList(l);
+        r=sortList(r);
+        
+      ListNode *ans=  merge(l,r);
+        
+        
+        return ans;
+    }
+};
