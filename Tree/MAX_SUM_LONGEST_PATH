@@ -1,0 +1,49 @@
+
+https://practice.geeksforgeeks.org/problems/sum-of-the-longest-bloodline-of-a-tree/1#
+
+Given a binary tree of size N. Your task is to complete the function sumOfLongRootToLeafPath(), that find the sum of
+all nodes on the longest path from root to leaf node.
+If two or more paths compete for the longest path, then the path having maximum sum of nodes is being considered.
+
+     int solve(Node *root,int len,int &maxlen,int sum,int &maxsum)
+    {
+        
+        if(root==NULL) {
+         return 0;   
+        }
+        sum=sum+root->data;
+        len=len+1;
+        
+        if(len>maxlen){
+            
+            maxlen=len;
+            maxsum=sum;
+        }
+         else if(len==maxlen){
+            
+           
+            maxsum=max(maxsum,sum);
+        }
+       
+        
+        
+         solve(root->left,len+1,maxlen,sum,maxsum);
+         solve(root->right,len+1,maxlen,sum,maxsum);
+        
+    
+        
+    }
+    
+    
+    int sumOfLongRootToLeafPath(Node *root)
+    {
+       int maxlen=-1,maxsum=-1;
+       int len=0,sum=0;
+       solve(root,len,maxlen,sum,maxsum);
+       
+       return maxsum;
+       
+    }
+    
+    
+    
