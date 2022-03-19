@@ -1,0 +1,38 @@
+
+https://www.interviewbit.com/problems/path-to-given-node/
+
+Example Explanation
+Explanation 1:
+
+ We need to find the path from root node to node with data value 5.
+ So the path is 1 -> 2 -> 5 so we will return [1, 2, 5]
+Explanation 2:
+
+ We need to find the path from root node to node with data value 1.
+ As node with data value 1 is the root so there is only one node in the path.
+ So we will return [1]
+ 
+ vector<int>ans;
+
+bool solve1( TreeNode*root, int t, vector<int>&v ){
+
+    if(root==NULL)return false ;
+
+    v.push_back(root->val);
+
+      if(root->val==t)return true;
+    if(solve1(root->left,t,v) or solve1(root->right,t,v) )return true;
+ 
+    v.pop_back();
+
+    return false;
+
+}
+
+vector<int> Solution::solve(TreeNode* A, int B) {
+    vector<int>v;
+    if(A==NULL)return v;
+solve1(A,B,v);
+
+    return v;
+}
