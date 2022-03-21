@@ -1,0 +1,53 @@
+https://leetcode.com/problems/min-cost-climbing-stairs/
+
+You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+
+You can either start from the step with index 0, or the step with index 1.
+
+Return the minimum cost to reach the top of the floor.
+
+ 
+
+Example 1:
+
+Input: cost = [10,15,20]
+Output: 15
+Explanation: You will start at index 1.
+- Pay 15 and climb two steps to reach the top.
+The total cost is 15.
+
+
+
+class Solution {
+public:
+       int dp[1000 + 1];
+    int solve(vector<int>&v,int i  ){
+         if(i>v.size())return INT_MAX-2000;
+        if(i==v.size())return 0;
+        
+        int left=solve(v,i+1 )+v[i];
+        int right=solve(v,i+2 )+v[i];
+        
+        if(dp[i]!=-1)return dp[i];
+        
+        return dp[i]=min(left,right);
+        
+    }
+    
+    int minCostClimbingStairs(vector<int>& cost) {
+       int n=cost.size();
+       int dp1[n];
+        memset(dp1,-1,n);
+        
+        dp1[0]=cost[0];
+        dp1[1]=cost[1];
+        
+        for(int i=2;i<n;i++){
+            
+            dp1[i] = min(dp1[i-1],dp1[i-2]) + cost[i];
+        }
+     
+        return min(dp1[n-1],dp1[n-2]);
+       // return  min(solve(cost,0 ),solve(cost,1 ));
+    }
+};
