@@ -1,0 +1,40 @@
+https://bit.ly/3NlNBU4
+
+A thief is robbing a store and can carry a maximal weight of W into his knapsack. There are N items and the ith item weighs wi and is of value vi
+. Considering the constraints of the maximum weight that a knapsack can carry, you have to find and return the maximum value that a thief can generate by
+stealing items.
+Input Format:
+The first line contains a single integer T representing the number of test cases.      
+The T-test cases are as follows:
+
+Line 1:The first line contains an integer, that denotes the value of N. 
+Line 2:The following line contains N space-separated integers, that denote the values of the weight of items. 
+Line 3:The following line contains N space-separated integers, that denote the values associated with the items. 
+Line 4:The following line contains an integer that denotes the value of W. W denotes the maximum weight that a thief can carry.
+---------------------------------------------------------------------------------------------------------
+int solve(vector<int>&w,vector<int>&v,int i,int mw,vector<vector<int>>&dp){
+    
+   // if(mw<=0)return 0;
+    if(i<0)return 0;
+    if(i==0){
+        
+        if(w[0]<=mw)return v[0];
+        else return 0;
+    }
+    if(dp[i][mw]!=-1)return dp[i][mw];
+    int nottake=0+solve(w,v,i-1,mw,dp);
+    int take=INT_MIN;
+    
+    if(w[i]<=mw){
+        take=v[i] + solve(w,v,i-1,mw-w[i],dp);
+    }
+    
+    return dp[i][mw]=max(take,nottake);
+}
+
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+    vector<vector<int>>dp( n+1, vector<int>(maxWeight+1,-1));
+    return solve(weight,value,n-1,maxWeight,dp);
+ 
+}
