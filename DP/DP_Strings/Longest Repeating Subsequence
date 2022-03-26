@@ -1,0 +1,71 @@
+
+https://practice.geeksforgeeks.org/problems/longest-repeating-subsequence2004/1/#
+
+Given a string str, find the length of the longest repeating subsequence such that it can be found twice in the given string. The two identified subsequences A and B can use the same ith character from string str if and only if that ith character has different indices in A and B.
+
+Example 1:
+
+Input:
+str = "axxxy"
+Output: 2
+Explanation:
+The given array with indexes looks like
+a x x x y 
+0 1 2 3 4
+
+The longest subsequence is "xx". 
+It appears twice as explained below.
+
+subsequence A
+x x
+0 1  <-- index of subsequence A
+------
+1 2  <-- index of str 
+
+
+subsequence B
+x x
+0 1  <-- index of subsequence B
+------
+2 3  <-- index of str 
+
+We are able to use character 'x' 
+(at index 2 in str) in both subsequences
+as it appears on index 1 in subsequence A 
+and index 0 in subsequence B.
+
+
+
+	int solve(string s,int x,int y){
+	    
+	    if(x==0 or y==0)return 0;
+	    
+	    if(s[x-1]==s[y-1] and x!=y){
+	        
+	        
+	        //axxxy
+	        //axxxy
+	        
+	        return 1+solve(s,x-1,y-1);
+	    }
+	    else{
+	        
+	        return max(solve(s,x,y-1),solve(s,x-1,y));
+	    }
+	}
+	
+	
+		int LongestRepeatingSubsequence(string str){
+		    // Code here
+		    
+		    return solve(str,str.size(),str.size());
+		}
+
+
+
+
+
+
+
+
+
