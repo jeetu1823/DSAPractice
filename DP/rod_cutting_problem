@@ -1,0 +1,48 @@
+link:
+shorturl.at/bjGN0
+
+Given a rod of length ‘N’ units. The rod can be cut into different sizes and each size has a cost associated with it.
+Determine the maximum cost obtained by cutting the rod and selling its pieces.
+Note:
+1. The sizes will range from 1 to ‘N’ and will be integers.
+
+2. The sum of the pieces cut should be equal to ‘N’.
+
+3. Consider 1-based indexing.
+Input Format:
+The first line of input contains an integer ‘T’ denoting the number of test cases.
+
+The next 2 * T lines represent the ‘T’ test cases.
+
+The first line of each test case contains an integer ‘N’ denoting the length of the rod.
+
+The second line of each test case contains a vector ’A’, of size ‘N’ representing the cost of different lengths, 
+where each index of the array is the sub-length and the element at that index is the cost for that sub-length.
+
+
+
+
+int solve(int i,vector<int>&p,int n,vector<vector<int>>&dp){
+    if(i<0)return -1e9;
+    if(i==0 ){
+        return n*p[0];
+    }
+    if(dp[i][n]!=-1)return dp[i][n];
+     int nottake=solve(i-1,p,n,dp);
+    int take = -1e9;
+    int rodlength=i+1;
+    if(rodlength <=n){
+        
+        take=p[i]+solve(i,p,n-rodlength,dp);
+    }
+    
+    
+    return dp[i][n]=max(take,nottake);
+}
+
+int cutRod(vector<int> &price, int n)
+{
+    vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+    return solve(n-1,price,n,dp);
+	 
+}
