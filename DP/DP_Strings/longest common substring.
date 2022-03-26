@@ -1,0 +1,34 @@
+https://bit.ly/3wAZTC0
+
+
+Problem Statement
+You have been given two strings 'STR1' and 'STR2'. You have to find the length of the longest common substring.
+A string “s1” is a substring of another string “s2” if “s2” contains the same characters as in “s1”, in the same order and in continuous fashion also.
+For Example :
+If 'STR1' = “abcjklp” and 'STR2' = “acjkp”  then the output will be 3.
+
+Explanation: The longest common substring is “cjk” which is of length 3.
+
+
+
+int solve(string s1,string s2,int n,int m,int res){
+    
+    if(n==0 or m==0)return 0;
+    
+    if(s1[n-1]==s2[m-1]){
+        
+         res= solve(s1,s2,n-1,m-1,res+1);
+    } 
+    
+    int an=solve(s1,s2,n-1,m,0);
+    int am=solve(s2,s2,n,m-1,0);
+    
+    
+    return max(res,max(an,am));
+    
+}
+
+int lcs(string &str1, string &str2){
+     int res=0;
+    return solve(str1,str2,str1.size(),str2.size(),res);
+}
