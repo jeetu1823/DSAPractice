@@ -1,0 +1,47 @@
+http://surl.li/bqeon
+
+Sample Input 1 :
+3
+1 2 3
+4
+Sample Output 1:
+4
+Explanation For Sample Output 1:
+We can make a change for the value V = 4 in four ways.
+1. (1,1,1,1), 
+2. (1,1, 2), [One thing to note here is, (1, 1, 2) is same as that of (2, 1, 1) and (1, 2, 1)]
+3. (1, 3), and 
+4. (2, 2)
+
+#include<bits/stdc++.h>
+ 
+long solve(int i,int tar,int *v,vector<vector<long long>> &dp){
+    if(i<0 or tar<0)return 0;
+    //if(tar<0)return 0;
+    if(i==0){
+         
+          return tar%v[0]==0;
+     }
+    
+     if(dp[i][tar]!=-1)return dp[i][tar];
+    
+    long nottake = solve(i-1,tar,v,dp);
+    long take=0;
+    if(v[i]<=tar){
+        take=solve(i,tar-v[i],v,dp);
+    }
+    return    dp[i][tar] =  take+nottake;
+    //return dp[i][tar]=take+nottake;
+}
+
+long countWaysToMakeChange(int *d, int n, int value)
+{
+   // memset(dp,-1 ,sizeof(dp) );
+    //Write your code here
+   // vector<int>t=d;
+  //  cout<<d[0];
+    //long  n=sizeof(d)/sizeof(d[0]);
+     vector<vector<long long>> dp(n + 1, vector<long long> (value + 1, -1));
+   return solve(n-1,value,d,dp);
+     
+}
