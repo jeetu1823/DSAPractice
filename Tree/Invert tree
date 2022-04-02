@@ -1,0 +1,36 @@
+https://leetcode.com/problems/invert-binary-tree/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    
+    TreeNode* solve(TreeNode*root){
+        
+       if(root==NULL)return root;
+        
+        swap(root->left,root->right);
+        solve(root->left);
+        solve(root->right);
+        
+        return root;
+    }
+    
+    TreeNode* invertTree(TreeNode* root) {
+        
+        return solve(root );
+    }
+};
