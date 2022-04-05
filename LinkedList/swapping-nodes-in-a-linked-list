@@ -1,0 +1,53 @@
+https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+
+
+You are given the head of a linked list, and an integer k.
+
+Return the head of the linked list after swapping the values of the kth node from the beginning and the kth node from the end (the list is 1-indexed).
+
+
+class Solution {
+public:
+    
+    int size(ListNode*root){
+        
+        if(root==NULL)return 0;
+        int c=1;
+        while(root!=NULL){
+            c++;
+            root=root->next;
+        }
+        return c;
+    }
+    
+    
+    
+    
+    
+    ListNode* swapNodes(ListNode* head, int k) {
+        
+        int n=size(head);
+      //  cout<<n;
+        //from end or from start node 
+      ListNode *temp=head;
+        ListNode*lastnode=head ;
+        int s=n-k;
+         
+        //cout<<s;
+        for(int i=1;i<s;i++){
+            lastnode=lastnode->next;
+        }
+        
+         //int end=temp->val;
+        
+        temp=head;
+        
+        for(int i=1;i<k;i++){
+            temp=temp->next;
+        }
+        // cout<<temp->val;
+         swap(temp->val,lastnode->val);
+        
+        return head;
+    }
+};
