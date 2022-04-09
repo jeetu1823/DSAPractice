@@ -1,0 +1,34 @@
+https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+
+class Solution {
+public:
+    
+    map<int,int>m;
+   
+    
+    TreeNode*solve(vector<int>&in,vector<int>&po,int &index,int instart ,int inend){
+        
+        if(index<0 or instart>inend)return NULL;
+        
+        int ele=po[(index--)];
+        TreeNode*root=new TreeNode(ele);
+        
+        int pos=m[ele];
+        root->right=solve(in,po,index,pos+1,inend);
+        root->left=solve(in,po,index,instart,pos-1);
+        
+          return root;
+        
+    }
+    
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        
+        for(int i=0;i<inorder.size();i++){
+            m[inorder[i]]=i;
+        }
+   // reverse(postorder.begin(),postorder.end());
+         int n=postorder.size()-1;
+        return solve(inorder,postorder,n,0,n);
+        
+    }
+};
