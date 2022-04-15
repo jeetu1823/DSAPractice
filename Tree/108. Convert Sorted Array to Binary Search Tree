@@ -11,6 +11,22 @@ https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
 
 
 
+
+
+
+//hints
+//make the ext functoin 
+// pass nums,l,h
+//do like binary search i.e find mid and calculte the base condtion.
+
+
+
+
+
+
+
+
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
